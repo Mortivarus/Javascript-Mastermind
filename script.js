@@ -96,6 +96,7 @@ const orderCompare = (array1, array2) => {
 
 //Draws an input array with colours to the playing field
 const drawInput = (colourArray, yRel) => {
+    yRel += 50
     for(i=0; i< colourArray.length; i++){
         let xRel = [i] * 100 + 50
         circColour(xRel, yRel, 40, colourArray[i]) 
@@ -103,84 +104,114 @@ const drawInput = (colourArray, yRel) => {
 } 
 
 //Converts written colour to a predefined colour code
-const colourConvertor = (array) =>{
-    for (i=0; i< array.length; i++){
-        if(array[i] === 'black'){
-            array[i] = '#2C3E50'
-        } else if(array[i] === 'white'){
-            array[i] = '#ECF0F1'
-        } else if(array[i] === 'red'){
-            array[i] = '#C0392B'
-        } else if(array[i] === 'blue'){
-            array[i] = '#2980B9'
-        } else if(array[i] === 'green'){
-            array[i] = '#27AE60'
-        } else if(array[i] === 'yellow'){
-            array[i] = '#F1C40F'
+const colourConvertor = (arrayInput) =>{
+    let arrayOutput = []
+
+    for (i=0; i< arrayInput.length; i++){
+        if(arrayInput[i] === 'black'){
+            arrayOutput[i] = '#2C3E50'
+        } else if(arrayInput[i] === 'white'){
+            arrayOutput[i] = '#ECF0F1'
+        } else if(arrayInput[i] === 'red'){
+            arrayOutput[i] = '#C0392B'
+        } else if(arrayInput[i] === 'blue'){
+            arrayOutput[i] = '#2980B9'
+        } else if(arrayInput[i] === 'green'){
+            arrayOutput[i] = '#27AE60'
+        } else if(arrayInput[i] === 'yellow'){
+            arrayOutput[i] = '#F1C40F'
         }
     }
-    return array
+    return arrayOutput
 }
 
-//Main game loop
-let round = 12
-let yRel = 50
+//Fill an array with the correct colours based on score
+const scoreArray = (colourScore, orderScore) => {
+    let score = []
 
-const generatedColour = colourPicker()
-console.log(generatedColour)
-
-while (round > 0) {
-    
-    const inputColour = []
-
-    const colours = ["black", "white", "red", "blue", "green", "yellow"]
-
-    let input = ''
-    
-    console.log(`It's round ${round}`)
-    
-    for(i = 0; i < 4; i++){
-        j = i + 1
-        input = prompt(`What's your pick for colour ${j}? Hint: black, white, red, blue, green or yellow `).toLowerCase()
-
-        while(colours.includes(input) === false || inputColour.includes(input)){
-            if(colours.includes(input) === false){
-                input = prompt(`Invalid colour. Please select either black, white, red, blue, green or yellow. `).toLowerCase()
-            } else if (inputColour.includes(input)){
-                input = prompt(`You can only use this colour once, please use another colour.`).toLowerCase()
-            }
-        }
-        inputColour[i] = input
+    if(colourScore > 0){
+        score = score.concat(Array(Math.min(colourScore, orderScore)).fill('red'))
     }
-    
-    drawInput(colourConvertor(inputColour), yRel)
-
-    const correctColour = amountCompare(colourSummarizer(generatedColour), colourSummarizer(inputColour))
-
-    const correctOrder = orderCompare(generatedColour, inputColour)
-    
-    console.log(`Number of correct colours is ${correctColour}`)
-    console.log(`Number of correctly ordered colours is ${correctOrder}`)
-
-    if(correctOrder === 4 && correctColour === 4){
-        console.log("You win!")
-        break
+    if(colourScore - orderScore > 0){
+        score = score.concat(Array(colourScore-orderScore).fill('white'))
     }
-
-    round--   
-    yRel += 100
-    console.log(yRel)
+    if(4 - colourScore > 0){
+        score = score.concat(Array(4 - colourScore).fill('black'))
+    }
+    return score
 }
 
-console.log("Game over!")
+//Draw the score on the playing field
+const drawScore = (xRel, yRel, colourArray) =>{
+    const xCoord = [33, 33, 66, 66]
+    const yCoord = [33, 66, 33, 66]
 
-
-// colourScore = 4, orderScore = 4 -> 4 x rood
-// colourScore < 4, orderScore > colourScore -> orderScore x rood, (colourScore - orderScore) x wit, (4 - colourScore - orderScore) x zwart
-// colourScore = 0 -> 4 x zwart
-
-const drawScore = (colourScore, orderScore) => {
+    for(i = 0; i < colourArray.length; i++){
+        circColour(xRel + xCoord[i], yRel + yCoord[i], 15, colourArray[i])
+    }
 }
+
+// //Main game loop
+// let round = 12
+// let yRel = 0
+
+// const generatedColour = colourPicker()
+// console.log(generatedColour)
+
+// while (round > 0) {
+    
+//     const inputColour = []
+
+//     const colours = ["black", "white", "red", "blue", "green", "yellow"]
+
+//     let input = ''
+    
+//     console.log(`It's round ${round}`)
+    
+//     //Ask four times for a colour input, check if colour is only used once and if input is a valid colour
+//     for(i = 0; i < 4; i++){
+//         j = i + 1
+//         input = prompt(`What's your pick for colour ${j}? Hint: black, white, red, blue, green or yellow `).toLowerCase()
+
+//         while(colours.includes(input) === false || inputColour.includes(input)){
+//             if(colours.includes(input) === false){
+//                 input = prompt(`Invalid colour. Please select either black, white, red, blue, green or yellow. `).toLowerCase()
+//             } else if (inputColour.includes(input)){
+//                 input = prompt(`You can only use this colour once, please use another colour.`).toLowerCase()
+//             }
+//         }
+//         inputColour[i] = input
+//     }
+    
+//     //Convert the input colour to predefined HTML codes, and then draw the input to the game field
+//     drawInput(colourConvertor(inputColour), yRel)
+
+//     //Compare the input to the randomly generated code
+//     const correctColour = amountCompare(colourSummarizer(generatedColour), colourSummarizer(inputColour))
+
+//     const correctOrder = orderCompare(generatedColour, inputColour)
+
+//     //Draw the points to the screen
+//     drawScore(400, yRel, colourConvertor(scoreArray(correctColour, correctOrder)))
+
+//     console.log(`Number of correct colours is ${correctColour}`)
+//     console.log(`Number of correctly ordered colours is ${correctOrder}`)
+
+//     //If both colours and order are correct, end the loop
+//     if(correctOrder === 4 && correctColour === 4){
+//         console.log("You win!")
+//         break
+//     }
+
+//     round--   
+//     yRel += 100
+// }
+
+// console.log("Game over!")
+
+
+
+
 
 
 

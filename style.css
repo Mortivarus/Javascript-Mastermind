@@ -2,3 +2,7 @@ body{
     margin: 50px;
     padding: 0px;
 }
+
+.container{
+    display: flex;
+}
