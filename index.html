@@ -9,22 +9,71 @@
 </head>
 <body>
 
-<div>
-    <div class="container">
+<div class="flex-container">
+    <div>
+        <div class="displaybox">
+            <div>
+                Welcome to MasterMind!
+            </div>
+            <div id="display">
+                Please select four unique colours and click 'Next Round'
+            </div>
+        </div>
         <canvas id = "canvas" width="500" height="1200"></canvas>
     </div>
-    <div class="container">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-            </ul>
-          </div> 
+    <div class="selectionmenu">
+        <label for="colour1">Select colour 1</label>
+        <select id="colour1" class = "select">
+            <option value="blank" selected>None</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <label for="colour2">Select colour 2</label>
+        <select id="colour2" class = "select">
+            <option value="blank" selected>None</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <label for="colour3">Select colour 3</label>
+        <select id="colour3" class = "select">
+            <option value="blank" selected>None</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <label for="colour4">Select colour 4</label>
+        <select id="colour4" class = "select">
+            <option value="blank" selected>None</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <button id="btn">Next round</button>
+        <div class="roundbox">
+            Round
+            <div id="round">12</div>
+        </div>
     </div>
+
 </div>
+
+
+
+
 
 <script src="script.js"></script>
 </body>

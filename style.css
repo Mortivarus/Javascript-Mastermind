@@ -3,6 +3,83 @@ body{
     padding: 0px;
 }
 
-.container{
+.flex-container{
     display: flex;
+    justify-content: center;
+    
 }
+
+.flex-container > div{
+    margin: 6px;
+}
+
+.select{
+    max-height: 100px;
+    background-color: #d0d3d4;
+    font: 13px sans-serif;
+    font-weight: bold;
+    color:#212f3d;
+    padding: 2px;
+}
+
+.selectionmenu{
+    padding: 10px;
+    display: flex;
+    background-color:#a6acaf;
+    max-height: 300px;
+    min-width: 150px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font: 15px sans-serif;
+    color: #424949;
+    font-weight: bold;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #515a5a;
+}
+
+#btn{
+    background-color: #d0d3d4;
+    font: 13px sans-serif;
+    font-weight: bold;
+    color:#212f3d;
+}
+
+#canvas{
+    border-style: solid;
+    border-width: 3px;
+    border-color: #515a5a;
+}
+
+.roundbox{
+    padding: 2px;
+    text-align: center;
+    background-color: #2C3E50;
+    color: #e74c3c;
+    font: 17px sans-serif;
+    font-weight: bold;
+}
+
+.displaybox{
+    border-style: solid;
+    border-width: 3px;
+    border-color: #2C3E50;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 500px;
+    background-color: #2C3E50;
+    line-height: 100px;
+    font: 20px sans-serif;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+#display{
+    padding: 3px;
+    font: 17px sans-serif;
+    font-weight: bold;
+}
+
