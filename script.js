@@ -30,11 +30,6 @@ const colourPicker = () => {
 
    for(i = 0; i< 4; i++){
         j = Math.floor((Math.random()*6))
-
-       while(output.includes(colours[j])){ //Checks if the value is already in the array. If so, redraw j. 
-            j = Math.floor((Math.random()*6))
-        }
-
        output[i] = colours[j]
    }
    return output
@@ -151,69 +146,70 @@ const drawScore = (xRel, yRel, colourArray) =>{
     }
 }
 
-// //Main game loop
-// let round = 12
-// let yRel = 0
+const buttonRound = document.getElementById("btn")
+const display = document.getElementById("display")
+const counter = document.getElementById("round")
 
-// const generatedColour = colourPicker()
-// console.log(generatedColour)
+let round = 12
 
-// while (round > 0) {
+let yRel = 0
+
+const generatedColour = colourPicker()
+
+//Main game function
+const roundFunction = () => {
+
+    if(round === 0){
+        return
+    }
+
+    const inputColour = []
+
+    for(i = 0; i < 4; i++){
+        j = i + 1
+        inputColour[i] = document.getElementById(`colour${j}`).value
+    }
+
+    if(inputColour.includes("none")){
+        document.getElementById("display").innerHTML = "Invalid input. Please select all four colours."
+        return
+    }
+
+    //Convert the input colour to predefined HTML codes, and then draw the input to the game field
+    drawInput(colourConvertor(inputColour), yRel)
+
+    //Compare the input to the randomly generated code
+    const correctColour = amountCompare(colourSummarizer(generatedColour), colourSummarizer(inputColour))
+
+    const correctOrder = orderCompare(generatedColour, inputColour)
+
+    //Draw the points to the screen
+    drawScore(400, yRel, colourConvertor(scoreArray(correctColour, correctOrder)))
+
+    if(correctOrder === 4 && correctColour === 4){
+        display.innerHTML = "You win! Well done!"
+        return
+    }
+
+    round--
     
-//     const inputColour = []
-
-//     const colours = ["black", "white", "red", "blue", "green", "yellow"]
-
-//     let input = ''
+    counter.innerHTML = round
     
-//     console.log(`It's round ${round}`)
+    if(round === 0){
+        display.innerHTML = "You lost! Game over!"
+        return
+    }
     
-//     //Ask four times for a colour input, check if colour is only used once and if input is a valid colour
-//     for(i = 0; i < 4; i++){
-//         j = i + 1
-//         input = prompt(`What's your pick for colour ${j}? Hint: black, white, red, blue, green or yellow `).toLowerCase()
+    yRel += 100
 
-//         while(colours.includes(input) === false || inputColour.includes(input)){
-//             if(colours.includes(input) === false){
-//                 input = prompt(`Invalid colour. Please select either black, white, red, blue, green or yellow. `).toLowerCase()
-//             } else if (inputColour.includes(input)){
-//                 input = prompt(`You can only use this colour once, please use another colour.`).toLowerCase()
-//             }
-//         }
-//         inputColour[i] = input
-//     }
-    
-//     //Convert the input colour to predefined HTML codes, and then draw the input to the game field
-//     drawInput(colourConvertor(inputColour), yRel)
+    for(i = 1; i < 5; i++){
+        document.getElementById(`colour${[i]}`).value = "none"
+    }
 
-//     //Compare the input to the randomly generated code
-//     const correctColour = amountCompare(colourSummarizer(generatedColour), colourSummarizer(inputColour))
+    display.innerHTML = "Please select four colours and click 'Next Round'"
 
-//     const correctOrder = orderCompare(generatedColour, inputColour)
+}
 
-//     //Draw the points to the screen
-//     drawScore(400, yRel, colourConvertor(scoreArray(correctColour, correctOrder)))
-
-//     console.log(`Number of correct colours is ${correctColour}`)
-//     console.log(`Number of correctly ordered colours is ${correctOrder}`)
-
-//     //If both colours and order are correct, end the loop
-//     if(correctOrder === 4 && correctColour === 4){
-//         console.log("You win!")
-//         break
-//     }
-
-//     round--   
-//     yRel += 100
-// }
-
-// console.log("Game over!")
-
-
-
-
-
-
-
+buttonRound.addEventListener("click", roundFunction)
 
 
