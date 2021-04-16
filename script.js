@@ -156,6 +156,8 @@ let yRel = 0
 
 const generatedColour = colourPicker()
 
+console.log(generatedColour)
+
 //Main game function
 const roundFunction = () => {
 
