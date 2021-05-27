@@ -19,9 +19,12 @@ const circColour = (x, y, radius, colour) => {
 }
 
 //Draw some rectangles for the playing field
-rectColour(0,0, 400, 1200, '#cacfd2')
+rectColour(0,100, 400, 1300, '#cacfd2')
 
-rectColour(400, 0, 100, 1200, '#797d7f')
+rectColour(400, 0, 100, 1300, '#797d7f')
+
+rectColour(0, 0, 400, 100, '#979a9a')
+
 
 //Select four random unique colours and push them to an array
 const colourPicker = () => {  
@@ -152,9 +155,11 @@ const counter = document.getElementById("round")
 
 let round = 12
 
-let yRel = 0
+let yRel = 100
 
 const generatedColour = colourPicker()
+
+console.log(generatedColour)
 
 //Main game function
 const roundFunction = () => {
@@ -186,13 +191,15 @@ const roundFunction = () => {
 
     if(correctOrder === 4 && correctColour === 4){
         display.innerHTML = "You win! Well done!"
+        drawInput(colourConvertor(generatedColour), 0)
         return
     }
     
     counter.innerHTML = round--
     
     if(round === 0){
-        display.innerHTML = "You lost! Game over!"
+        display.innerHTML = `You lost! Game over!`
+        drawInput(colourConvertor(generatedColour), 0)
         return
     }
     
