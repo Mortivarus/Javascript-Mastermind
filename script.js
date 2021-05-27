@@ -159,9 +159,7 @@ const generatedColour = colourPicker()
 //Main game function
 const roundFunction = () => {
 
-    if(round === 0){
-        return
-    }
+    if(round === 0) return
 
     const inputColour = []
 
@@ -190,10 +188,8 @@ const roundFunction = () => {
         display.innerHTML = "You win! Well done!"
         return
     }
-
-    round--
     
-    counter.innerHTML = round
+    counter.innerHTML = round--
     
     if(round === 0){
         display.innerHTML = "You lost! Game over!"
